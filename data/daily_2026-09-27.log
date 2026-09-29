@@ -1,0 +1,191 @@
+=== 2026-09-27T15:50:46+05:30 daily run ===
+--- 1. order books (ground truth, ~15 min)
+Skipping symbols shared by 2+ CMC tokens: GUSD, ONE
+  binance    255 of 514 tokens listed  (~11 min)
+  okx        209 of 514 tokens listed  (~2 min)
+  coinbase   207 of 514 tokens listed  (~1 min)
+  kraken     300 of 514 tokens listed  (~6 min)
+  kraken    WLDUSD       price_mismatch mid=0.5653 cmc=0.493109
+  coinbase  WLD-USD      price_mismatch mid=0.56465 cmc=0.493109
+  kraken    UUSD         price_mismatch mid=0.0002655 cmc=0.99937
+  kraken    LITUSD       price_mismatch mid=0.14745 cmc=4.80126
+  kraken    QNTUSD       price_mismatch mid=173.215 cmc=105.956
+  okx       WLD-USDT     price_mismatch mid=0.56405 cmc=0.493109
+  coinbase  QNT-USD      price_mismatch mid=173.32 cmc=105.956
+  binance   WLDUSDT      price_mismatch mid=0.56415 cmc=0.493109
+  binance   QNTUSDT      price_mismatch mid=173.17 cmc=105.956
+  coinbase  RAY-USD      price_mismatch mid=2.3224 cmc=2.04644
+  kraken    RAYUSD       price_mismatch mid=2.317 cmc=2.04644
+  coinbase  KITE-USD     price_mismatch mid=0.149715 cmc=0.135653
+  okx       RAY-USDT     price_mismatch mid=2.32255 cmc=2.04644
+  okx       KITE-USDT    price_mismatch mid=0.14981 cmc=0.135653
+  binance   RAYUSDT      price_mismatch mid=2.3204 cmc=2.04644
+  coinbase  AI-USD       price_mismatch mid=0.021415 cmc=0.264964
+  kraken    AIUSD        price_mismatch mid=0.021405 cmc=0.264964
+  okx       AI-USDT      price_mismatch mid=0.021415 cmc=0.264964
+  coinbase  EDGE-USD     price_mismatch mid=0.13644 cmc=0.615105
+  kraken    EDGEUSD      price_mismatch mid=0.13644 cmc=0.615105
+  binance   KITEUSDT     price_mismatch mid=0.14995 cmc=0.135653
+  kraken    TELUSD       price_mismatch mid=0.0017685 cmc=0.00158353
+  kraken    GRASSUSD     price_mismatch mid=0.60355 cmc=0.518552
+  kraken    SOONUSD      price_mismatch mid=0.2986 cmc=0.21754
+  coinbase  GRASS-USD    price_mismatch mid=0.6018 cmc=0.518552
+  kraken    SUPERUSD     price_mismatch mid=0.211 cmc=0.188777
+  coinbase  SUPER-USD    price_mismatch mid=0.21082 cmc=0.188777
+  okx       GRASS-USDT   price_mismatch mid=0.60075 cmc=0.518552
+  kraken    QUSD         price_mismatch mid=0.045459 cmc=0.0356988
+  binance   AIUSDT       price_mismatch mid=0.02015 cmc=0.264964
+  kraken    ORCAUSD      price_mismatch mid=1.836 cmc=1.63518
+  coinbase  ORCA-USD     price_mismatch mid=1.83525 cmc=1.63518
+  kraken    FUNUSD       price_mismatch mid=0.018665 cmc=0.00789241
+  binance   FRAXUSDT     price_mismatch mid=0.3049 cmc=0.991696
+  coinbase  VELO-USD     price_mismatch mid=0.03622 cmc=0.00488576
+  okx       W-USDT       price_mismatch mid=0.015505 cmc=0.0126745
+  coinbase  W-USD        price_mismatch mid=0.0155085 cmc=0.0126745
+  kraken    WUSD         price_mismatch mid=0.01548 cmc=0.0126745
+  okx       PHA-USDT     price_mismatch mid=0.071175 cmc=0.0819977
+  kraken    PHAUSD       price_mismatch mid=0.071355 cmc=0.0819977
+  kraken    NOCKUSD      price_mismatch mid=0.028295 cmc=0.0317352
+  coinbase  ARX-USD      price_mismatch mid=0.2564 cmc=0.229045
+  okx       ELF-USDT     price_mismatch mid=0.077705 cmc=0.0644195
+  kraken    ARXUSD       price_mismatch mid=0.25373 cmc=0.229045
+  coinbase  UP-USD       price_mismatch mid=0.070805 cmc=0.311692
+  binance   SUPERUSDT    price_mismatch mid=0.2105 cmc=0.188777
+  binance   MARSCOINUSDT price_mismatch mid=0.13145 cmc=0.115863
+  coinbase  INDEX-USD    price_mismatch mid=0.30465 cmc=0.036265
+  kraken    USUSD        price_mismatch mid=0.03266 cmc=0.02451
+  coinbase  done: 193 books
+  binance   ORCAUSDT     price_mismatch mid=1.8315 cmc=1.63518
+  kraken    UPUSD        price_mismatch mid=0.07108 cmc=0.311692
+  okx       done: 201 books
+  kraken    ASSETUSD     price_mismatch mid=0.20017 cmc=0.232929
+  kraken    LUNAUSD      price_mismatch mid=5.652e-05 cmc=0.0537423
+  kraken    done: 276 books
+  binance   WUSDT        price_mismatch mid=0.015515 cmc=0.0126745
+  binance   PHAUSDT      price_mismatch mid=0.0711 cmc=0.0819977
+  binance   XVGUSDT      price_mismatch mid=0.0036295 cmc=0.00317268
+  binance   done: 243 books
+
+=== Snapshot 2026-09-27T10:20:00+00:00 ===
+venue       books      ok  thin  trunc  mismatch
+binance       255    1749   605     76        12
+coinbase      207    1319   611      0        14
+kraken        298    1693   824    243        22
+okx           209    1420   510     80         8
+
+Median SELL slippage (bps vs best bid) by size, status=ok:
+  $       1,000  n=912   median=3.4
+  $      10,000  n=891   median=20.3
+  $     100,000  n=571   median=64.6
+  $   1,000,000  n=173   median=243.9
+  $  10,000,000  n=28    median=163.9
+
+356 tokens with at least one usable book.
+--- 2. OHLCV top-up (hourly history only reaches back one month)
+=== Universe: top 500 by market cap ===
+  500 tokens. First run costs about 8,600 credits; re-runs only pay for new candles.
+
+=== Backfill (daily since 2024-01-01, hourly last 720h) ===
+    10/500  daily+=0       hourly+=220     credits=3
+    20/500  daily+=0       hourly+=440     credits=6
+    30/500  daily+=0       hourly+=660     credits=9
+    40/500  daily+=0       hourly+=880     credits=12
+    50/500  daily+=0       hourly+=1100    credits=15
+    60/500  daily+=0       hourly+=1320    credits=18
+    70/500  daily+=0       hourly+=1540    credits=21
+    80/500  daily+=0       hourly+=1760    credits=24
+    90/500  daily+=0       hourly+=1980    credits=27
+   100/500  daily+=0       hourly+=2200    credits=30
+   110/500  daily+=0       hourly+=2420    credits=33
+   120/500  daily+=0       hourly+=2640    credits=36
+   130/500  daily+=0       hourly+=2860    credits=39
+   140/500  daily+=0       hourly+=3080    credits=42
+   150/500  daily+=0       hourly+=3300    credits=45
+   160/500  daily+=0       hourly+=3520    credits=48
+   170/500  daily+=0       hourly+=3740    credits=51
+   180/500  daily+=0       hourly+=3960    credits=54
+   190/500  daily+=0       hourly+=4180    credits=57
+   200/500  daily+=0       hourly+=4400    credits=60
+   210/500  daily+=0       hourly+=4620    credits=63
+   220/500  daily+=0       hourly+=4840    credits=66
+   230/500  daily+=0       hourly+=5060    credits=69
+   240/500  daily+=0       hourly+=5280    credits=72
+   250/500  daily+=0       hourly+=5500    credits=75
+   260/500  daily+=0       hourly+=5720    credits=78
+   270/500  daily+=0       hourly+=5940    credits=81
+   280/500  daily+=0       hourly+=6160    credits=84
+   290/500  daily+=0       hourly+=6380    credits=87
+   300/500  daily+=0       hourly+=6600    credits=90
+   310/500  daily+=0       hourly+=6820    credits=93
+   320/500  daily+=0       hourly+=7040    credits=96
+   330/500  daily+=0       hourly+=7260    credits=99
+   340/500  daily+=0       hourly+=7480    credits=102
+   350/500  daily+=0       hourly+=7700    credits=105
+   360/500  daily+=0       hourly+=7920    credits=108
+   370/500  daily+=0       hourly+=8140    credits=111
+   380/500  daily+=0       hourly+=8360    credits=114
+   390/500  daily+=10      hourly+=8800    credits=120
+   400/500  daily+=10      hourly+=9020    credits=123
+   410/500  daily+=10      hourly+=9240    credits=126
+   420/500  daily+=10      hourly+=9460    credits=129
+   430/500  daily+=10      hourly+=9680    credits=132
+   440/500  daily+=10      hourly+=9900    credits=135
+   450/500  daily+=7694    hourly+=17100   credits=284
+   460/500  daily+=7714    hourly+=17540   credits=290
+   470/500  daily+=7724    hourly+=17760   credits=294
+   480/500  daily+=7724    hourly+=17980   credits=297
+   490/500  daily+=7734    hourly+=18200   credits=301
+   500/500  daily+=14302   hourly+=25400   credits=439
+
+=== Stored ===
+  daily     383,859 candles   520 tokens  2024-01-02T00:00:00.000Z -> 2026-09-26T00:00:00.000Z
+  hourly    431,086 candles   520 tokens  2026-08-23T15:00:00.000Z -> 2026-09-27T09:00:00.000Z
+
+This run: +14,302 daily, +25,400 hourly, 441 credits.
+Hourly history only reaches back one month -- re-run before 30 Sep to extend it.
+--- 3. re-calibrate on all days so far
+# Calibration report (2026-09-27)
+
+3317 rows, 364 tokens, 5 day(s) (2026-09-22 to 2026-09-27). Target: cost of selling immediately across all measured venues, vs consolidated mid. 5-fold CV grouped by token.
+2750 more sales could not be absorbed by the merged book at all (no venue truncated). They can't be fitted, so they're scored instead: 'false comfort' = share a model prices under 10%. Dropped: 569 sales where a venue capped its levels (thin vs truncated unknowable); 0 token-days with no CMC volume/sigma.
+
+| model | Y | delta | median abs err | median factor off | R^2 (log) | false comfort |
+|---|---|---|---|---|---|---|
+| textbook sqrt, global Y **(shipped)** | 1.7 | 0.500 | 13.8 bps | x1.80 | 0.491 | 81% |
+| power law, global Y | 7.53 | 0.720 | 15.3 bps | x1.78 | 0.542 | 46% |
+| learned Y per token | per token | 0.720 | 14.0 bps | x1.69 | 0.615 | 47% |
+
+Median absolute error by order size (out-of-fold, bps):
+
+| size | n | sqrt | power | learned |
+|---|---|---|---|---|
+| $10,000 | 1490 | 8.5 | 8.3 | 6.8 |
+| $100,000 | 1310 | 25.0 | 33.3 | 29.0 |
+| $1,000,000 | 417 | 22.8 | 33.3 | 33.7 |
+| $10,000,000 | 100 | 96.9 | 96.7 | 86.7 |
+
+What predicts a token's Y (GBM feature importance): log_sigma 0.47, history_days 0.18, turnover 0.15, log_mcap 0.11, log_volume 0.09
+
+The learned model did not beat the power law by the required 5%, so the power law ships. Published as a negative result.
+
+Wrote ingest/calibration.json (used by impact.py) and data/calibration_report.md (for METHODOLOGY.md).
+--- 4. rate every token, re-run Hindsight with the new calibration
+Rated 508 tokens at 2026-09-27T10:38:00+00:00. Grade changes since the previous run: 50
+--- 5. grade distribution
+Calibration: Y=1.70 delta=0.500   520 tokens rated, 0 without candles
+
+grade  max position >=  tokens   share  largest by mcap
+AAA        $10,000,000      77     15%  BTC, ETH, USDT, BNB, XRP
+AA          $3,000,000      48      9%  SHIB, OKB, MNT, DOT, PUMP
+A           $1,000,000      74     14%  RAIN, CC, CRO, SKY, QNT
+BBB           $300,000     131     25%  LEO, BTW, VVV, KAS, GT
+BB            $100,000      78     15%  币安人生, SPX, FF, UB, DCR
+B              $30,000      60     12%  DEL, M, AKE, DRV, BR
+CCC            $10,000      17      3%  SKR, CATE, HNT, KNTQ, DIEM
+D                   $0      30      6%  USD0, PM, BULLA, YZY, lisUSD
+NR             no data       5      1%  vBUSD, YUSD, MNGO, HOTKEY, musebook
+
+77 tokens have a max position above the $10M calibration limit (show them as '> $10M').
+--- 6. export web/site.db for the website
+Wrote web/site.db (1.8 MB)
+=== done 2026-09-27T16:08:09+05:30 ===

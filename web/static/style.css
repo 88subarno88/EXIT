@@ -37,7 +37,7 @@
   --radius-sm: 8px;
   --radius-pill: 999px;
   --gap: 16px;
-  --header-h: 61px;
+  --header-h: 60px;         /* measured 59.3; the sticky thead overlaps it slightly */
   --shadow-sm: 0 1px 2px rgba(18, 20, 24, .06);
   --shadow: 0 1px 2px rgba(18, 20, 24, .05), 0 12px 28px -18px rgba(18, 20, 24, .35);
   --ring: 0 0 0 3px var(--accent-soft), 0 0 0 1px var(--accent-line);
@@ -158,14 +158,13 @@ footer.site { flex: none; }
 @media (max-width: 760px) { .hero { grid-template-columns: 1fr; } }
 
 /* --- header --------------------------------------------------------------- */
+/* Opaque, not translucent: table rows scroll underneath it and a see-through
+   bar lets them ghost through the nav. */
 header.site {
   position: sticky; top: 0; z-index: 30;
-  background: color-mix(in srgb, var(--panel) 88%, transparent);
-  backdrop-filter: saturate(1.6) blur(10px);
-  -webkit-backdrop-filter: saturate(1.6) blur(10px);
+  background: var(--panel);
   border-bottom: 1px solid var(--line);
 }
-@supports not (backdrop-filter: blur(4px)) { header.site { background: var(--panel); } }
 
 .header-inner { display: flex; align-items: center; gap: 10px 22px; flex-wrap: wrap; padding-top: 10px; padding-bottom: 10px; }
 
@@ -342,14 +341,17 @@ thead th {
   font-size: .71rem; text-transform: uppercase; letter-spacing: .06em;
   border-bottom: 1px solid var(--line); padding-top: 9px; padding-bottom: 9px;
 }
-.table-scroll.flow thead th { top: calc(var(--header-h) - 1px); box-shadow: 0 1px 0 var(--line); }
+/* Tucked 2px under the nav: any positive gap and rows show through as they pass. */
+.table-scroll.flow thead th { top: calc(var(--header-h) - 2px); box-shadow: 0 1px 0 var(--line); }
 @media (max-width: 1040px) { .table-scroll.flow thead th { top: 0; } }
 tbody tr:last-child td { border-bottom: 0; }
 tbody tr { transition: background .1s ease; }
 tbody tr:hover td { background: var(--panel-2); }
 td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
-/* the name column absorbs the slack so the figures stay grouped on the right */
-th.grow, td.grow { width: 99%; }
+/* Auto layout sizes the name column for the single longest name in 500 rows,
+   which opens a void before the figures on every other row. Truncating long
+   names lets the column shrink and the slack spread across the figures. */
+th.grow, td.grow { max-width: 260px; overflow: hidden; text-overflow: ellipsis; }
 td strong { font-weight: 620; }
 .t-note { color: var(--muted); font-size: .82rem; white-space: normal; }
 

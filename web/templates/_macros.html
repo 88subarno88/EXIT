@@ -7,8 +7,9 @@
 {% elif r.max_pos_lo %}50% band {{ r.max_pos_lo | usd }} – {{ r.max_pos_hi | usd }}{% endif %}
 {%- endmacro %}
 
+{# the name is ellipsised when the column is tight, so keep it on hover #}
 {% macro token_link(r) -%}
-<a href="{{ url_for('token', slug=r.slug) }}"><strong>{{ r.symbol }}</strong></a> <span class="muted small hide-sm">{{ r.name }}</span>
+<a href="{{ url_for('token', slug=r.slug) }}" title="{{ r.name }} ({{ r.symbol }})"><strong>{{ r.symbol }}</strong></a> <span class="muted small hide-sm" title="{{ r.name }}">{{ r.name }}</span>
 {%- endmacro %}
 
 {# a labelled figure card #}
