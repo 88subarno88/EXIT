@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "exit": {
+      "type": "stdio",
+      "command": "/home/vzux/Desktop/exit/.venv/bin/python",
+      "args": [
+        "/home/vzux/Desktop/exit/exit_mcp.py"
+      ],
+      "env": {}
+    }
+  }
+}

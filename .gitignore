@@ -6,3 +6,4 @@ data/*.db
 data/*.db-journal
 .DS_Store
 web/site.db.tmp
+.vercel

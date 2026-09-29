@@ -9,3 +9,5 @@ pandas
 scikit-learn
 # tests
 pytest
+# MCP server (step 8)
+mcp
