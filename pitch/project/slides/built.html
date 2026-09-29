@@ -1,0 +1,14 @@
+<section id="built" data-transition="fade" style="background:#EDECE6; color:#15171B; font-family:'IBM Plex Sans', Arial, sans-serif; padding:128px; display:flex; gap:64px; align-items:center">
+<div style="width:640px; display:flex; flex-direction:column; gap:24px">
+<p style="font-size:24px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#16734A">Built to keep running</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:60px; font-weight:600; line-height:1.1">The site never calls an API when a page loads.</h2>
+<ul style="font-size:27px; color:#5B606A; line-height:1.45">
+<li>Everything is computed once a day and served from SQLite, so a source going down cannot take the site with it</li>
+<li>Every CoinMarketCap call is logged — endpoint, status, latency, credits — and the log is a public page</li>
+<li>Tokens are keyed by CoinMarketCap id, never by symbol, because symbols collide and corrupt silently</li>
+<li>A public JSON API, rate limited, always returning the <b>as_of</b> stamp of the data</li>
+</ul>
+</div>
+<img src="/_blob/858ff69577487ef9635aa59c6c81e6ce" alt="Exit's data log: freshness per dataset and a table of every CoinMarketCap API call with status, latency and credits" style="width:960px; height:627px; object-fit:contain; border-radius:12px; border:1px solid #D8D6CF; box-shadow:0 12px 32px rgba(21,23,27,0.12)">
+<aside>The architecture rule is one line: the web app reads SQLite and nothing else. That is what lets the demo survive the API tier lapsing. The data log is also the evidence of real API usage, which is worth more as a live page than as a claim in a README.</aside>
+</section>

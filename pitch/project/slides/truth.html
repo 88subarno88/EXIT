@@ -1,0 +1,24 @@
+<section id="truth" data-transition="fade" style="background:#F6F6F3; color:#15171B; font-family:'IBM Plex Sans', Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; gap:44px">
+<h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:72px; font-weight:600; line-height:1.1">The model is graded against real order books, daily.</h2>
+<p style="font-size:32px; color:#5B606A; line-height:1.45; width:1500px">Every day we pull the full public books from four exchanges, merge the bids as if routing one sale across all of them, and walk them at $10k, $100k, $1M and $10M. Each day's inputs come from the <b>previous</b> day, so the model never sees the day it is tested on.</p>
+<div style="display:flex; gap:28px">
+<div style="flex:1; background:#FFFFFF; border:1px solid #E3E2DC; border-radius:16px; padding:36px; display:flex; flex-direction:column; gap:12px">
+<h3 style="font-family:'Source Serif 4', Georgia, serif; font-size:72px; font-weight:600; line-height:1; color:#16734A">4,634</h3>
+<p style="font-size:26px; color:#5B606A; line-height:1.35">measured sales in the fit</p>
+</div>
+<div style="flex:1; background:#FFFFFF; border:1px solid #E3E2DC; border-radius:16px; padding:36px; display:flex; flex-direction:column; gap:12px">
+<h3 style="font-family:'Source Serif 4', Georgia, serif; font-size:72px; font-weight:600; line-height:1; color:#16734A">367</h3>
+<p style="font-size:26px; color:#5B606A; line-height:1.35">tokens with real books</p>
+</div>
+<div style="flex:1; background:#FFFFFF; border:1px solid #E3E2DC; border-radius:16px; padding:36px; display:flex; flex-direction:column; gap:12px">
+<h3 style="font-family:'Source Serif 4', Georgia, serif; font-size:72px; font-weight:600; line-height:1; color:#16734A">4</h3>
+<p style="font-size:26px; color:#5B606A; line-height:1.35">exchanges, merged per sale</p>
+</div>
+<div style="flex:1; background:#FFFFFF; border:1px solid #E3E2DC; border-radius:16px; padding:36px; display:flex; flex-direction:column; gap:12px">
+<h3 style="font-family:'Source Serif 4', Georgia, serif; font-size:72px; font-weight:600; line-height:1; color:#16734A">63k</h3>
+<p style="font-size:26px; color:#5B606A; line-height:1.35">order-book snapshots kept</p>
+</div>
+</div>
+<p style="position:absolute; left:128px; bottom:64px; font-size:24px; color:#868C96; width:1664px">Binance · OKX · Coinbase · Kraken — public endpoints, no API key, cost measured against the consolidated mid so it includes the spread.</p>
+<aside>This is the slide that answers "your numbers are made up". Without it, the model is an opinion. With it, there is a published error table. Note that raw book levels are stored compressed, so if the walk is ever found wrong it can be recomputed rather than lost.</aside>
+</section>

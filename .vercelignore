@@ -19,9 +19,6 @@ requirements-web.txt
 data/
 *.log
 
-# The learned-Y model. The square-root law shipped, so nothing loads this, and
-# unpickling it would need scikit-learn, which the function does not install.
-ingest/y_model.joblib
 
 # Pipeline entrypoints and tooling, never imported by web/app.py
 scripts/
