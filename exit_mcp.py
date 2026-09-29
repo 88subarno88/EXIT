@@ -39,7 +39,10 @@ server = MCPServer(
         "size, and worst_exits to find the least liquid tokens. Every figure is a model "
         "estimate with a wide band: always report the band and the caveat, never present "
         "a single number as exact. Exit measures the cost of leaving; it does not predict "
-        "crashes."
+        "crashes. Every cost already assumes the sale is routed across all four exchanges "
+        "at once, so never suggest spreading it across venues as a way to pay less -- that "
+        "saving is already priced in. Spreading the sale over TIME is the only mitigation "
+        "the model supports."
     ),
 )
 
@@ -75,6 +78,23 @@ def _pct(bps):
 
 def _money(v):
     return None if v is None else round(v, 2)
+
+
+def _measured(obs):
+    """The order-book measurements behind the estimate, so an assistant can cite
+    evidence rather than only the model. None when no exchange we snapshot lists
+    the token."""
+    if not obs:
+        return None
+    return {
+        "day": obs["day"],
+        "exchanges_walked": obs["venues"],
+        "largest_sale_the_books_filled_usd": obs.get("largest_absorbed_usd"),
+        "smallest_sale_the_books_refused_usd": obs.get("smallest_unabsorbable_usd"),
+        "sales": [{"size_usd": s["size_usd"],
+                   "cost_percent": _pct(s["bps"]),
+                   "status": s["status"]} for s in obs.get("sales", [])],
+    }
 
 
 def _safe_size(r):
@@ -119,6 +139,14 @@ def can_i_exit(symbol: str, size_usd: float) -> dict:
         verdict = "very expensive: you would give up a large part of the position"
 
     caveats = []
+
+    # A MEASUREMENT beats the model. If the real books refused a sale this size,
+    # the estimate above is not just uncertain, it is known to be wrong -- say so
+    # first and overrule the verdict rather than burying it in a caveat.
+    if e.get("measured_unabsorbable"):
+        verdict = ("NO -- not at this size. The model's estimate is contradicted by the "
+                   "order books we actually measured, which could not fill this sale at all.")
+        caveats.insert(0, e["measured_note"])
     if e.get("beyond_model"):
         caveats.append("this sale is larger than a full day of the token's volume, so the "
                        "figure is extrapolated well past anything measured")
@@ -139,6 +167,12 @@ def can_i_exit(symbol: str, size_usd: float) -> dict:
         },
         "share_of_daily_volume": round(e["participation"], 4),
         "verdict": verdict,
+        "measured_today": _measured(r.get("observed")),
+        "already_assumed": "one sale routed across Binance, OKX, Coinbase and Kraken "
+                           "simultaneously -- splitting across those venues is already "
+                           "priced in and saves nothing further",
+        "only_mitigation": "spreading the sale over hours or days costs less than this "
+                           "figure, which is for selling everything immediately",
         "caveats": caveats,
         "safe_size": _safe_size(r),
         "as_of": r["as_of"],

@@ -79,6 +79,27 @@ def test_api_ambiguous_symbol_is_409_with_candidates(client):
     assert client.get("/api/v1/impact/ONE?id=3").get_json()["slug"] == "cross"
 
 
+def test_api_reports_a_sale_the_books_could_not_absorb(client):
+    """The model only sees volume and volatility, so it happily prices a sale the
+    real books refused. The measurement must travel with the estimate and win."""
+    # the fixture measured Harmony at $1M: unabsorbable
+    j = client.get("/api/v1/impact/harmony?size=1000000").get_json()
+    assert j["exit"]["measured_unabsorbable"] is True
+    assert "could not absorb" in j["exit"]["measured_note"]
+    assert j["observed"]["smallest_unabsorbable_usd"] == 1_000_000
+
+    # a smaller sale is not condemned by it: the flag is about size, not the token
+    small = client.get("/api/v1/impact/harmony?size=1000").get_json()
+    assert small["exit"]["measured_unabsorbable"] is False
+    assert small["exit"]["measured_note"] is None
+
+
+def test_bulk_ratings_stays_one_query(client):
+    """observed costs are per-token; serving them in the 500-row listing would mean
+    one query per token."""
+    assert "observed" not in client.get("/api/v1/ratings").get_json()["ratings"][0]
+
+
 def test_api_rejects_bad_size(client):
     assert client.get("/api/v1/impact/BTC?size=abc").status_code == 400
     assert client.get("/api/v1/impact/BTC?size=-5").status_code == 400

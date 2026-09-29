@@ -293,7 +293,31 @@ def _limited():
     return len(h) > RATE_LIMIT
 
 
-def _rating_json(r, size=None):
+def _observed(token_id):
+    """What the merged order books ACTUALLY did for this token on the latest day.
+
+    The model is an estimate; this is a measurement, and when the two disagree the
+    measurement wins. Deliberately not part of /api/v1/ratings -- one query per
+    token would turn that listing into 500 queries.
+    """
+    rows = q("SELECT day, size_usd, bps, status, venues FROM observed_costs "
+             "WHERE token_id = ? AND day = (SELECT MAX(day) FROM observed_costs "
+             "WHERE token_id = ?) ORDER BY size_usd", token_id, token_id)
+    if not rows:
+        return None
+    absorbed = [r["size_usd"] for r in rows if r["status"] == "ok"]
+    refused = [r["size_usd"] for r in rows if r["status"] == "unabsorbable"]
+    return {
+        "day": rows[0]["day"],
+        "venues": rows[0]["venues"],
+        "largest_absorbed_usd": max(absorbed) if absorbed else None,
+        "smallest_unabsorbable_usd": min(refused) if refused else None,
+        "sales": [{"size_usd": r["size_usd"], "bps": r["bps"], "status": r["status"]}
+                  for r in rows],
+    }
+
+
+def _rating_json(r, size=None, observed=None):
     band = (r["max_pos_lo"], r["max_pos_hi"])
     out = {
         "id": r["token_id"], "symbol": r["symbol"], "name": r["name"], "slug": r["slug"],
@@ -309,10 +333,26 @@ def _rating_json(r, size=None):
         "as_of": r["ts"],
         "methodology": url_for("methodology", _external=True),
     }
+    if observed:
+        out["observed"] = observed
     if size:
         ec = impact.exit_cost(size, r["volume_24h"], r["sigma"], r["Y"], r["delta"])
         out["exit"] = ec and {**ec, "band_bps_50pct": impact.band_bps(ec["bps"]),
                               "beyond_calibration": size > impact.CALIBRATED_MAX_USD}
+        # The model never knows a book refused a sale -- it only sees volume and
+        # volatility. If a sale this size (or smaller) could not be absorbed at all
+        # on the measured day, say so: the estimate above is known to be too
+        # optimistic here. This is the 'false comfort' case, per token.
+        floor = (observed or {}).get("smallest_unabsorbable_usd")
+        if out.get("exit"):
+            refused = floor is not None and size >= floor
+            out["exit"]["measured_unabsorbable"] = refused
+            out["exit"]["measured_note"] = (
+                f"on {observed['day']} the merged order books of "
+                f"{observed['venues']} exchange(s) could not absorb a "
+                f"${floor:,.0f} sale at all -- every bid within 50% of the price was "
+                f"not enough. This sale is at least that large, so the estimate above "
+                f"is known to be too optimistic for this token." if refused else None)
     return out
 
 
@@ -340,7 +380,8 @@ def api_impact(symbol):
         return jsonify(error=f"{symbol} matches {len(rows)} tokens; pass ?id=",
                        candidates=[{"id": r["token_id"], "name": r["name"], "slug": r["slug"]}
                                    for r in rows], as_of=ts), 409
-    return jsonify(_rating_json(rows[0], size))
+    # one token: it is worth the extra query to serve the measurement beside the model
+    return jsonify(_rating_json(rows[0], size, observed=_observed(rows[0]["token_id"])))
 
 
 @app.route("/api/v1/ratings")
