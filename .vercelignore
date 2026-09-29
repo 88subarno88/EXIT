@@ -1,0 +1,40 @@
+# What NOT to upload to Vercel. The deployed site needs only:
+#   web/            app.py, templates, static, site.db (the export)
+#   ingest/         impact.py + calibration.json (pure-stdlib maths)
+#   pyproject.toml  Flask, and the entrypoint
+# Everything else is pipeline, tooling or local state.
+
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# The pipeline's dependency list. Excluded on purpose: if Vercel sees it, it
+# installs numpy/pandas/scikit-learn into the function for no reason.
+# pyproject.toml declares the runtime deps instead.
+requirements.txt
+requirements-web.txt
+
+# Working data. The site serves web/site.db, which is NOT ignored.
+data/
+*.log
+
+# The learned-Y model. The square-root law shipped, so nothing loads this, and
+# unpickling it would need scikit-learn, which the function does not install.
+ingest/y_model.joblib
+
+# Pipeline entrypoints and tooling, never imported by web/app.py
+scripts/
+tests/
+.github/
+
+# Other hosts and local secrets
+render.yaml
+.env
+.env.example
+
+# The pitch deck and its screenshots
+pitch/
+
+# Docs
+GUIDE.md

@@ -23,6 +23,13 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB = os.getenv("SITE_DB") or os.path.join(ROOT, os.getenv("DB_PATH", "data/exit.db"))
 if not os.path.isabs(DB):
     DB = os.path.join(ROOT, DB)
+# A deployed host ships only the export (web/site.db); data/exit.db is git-ignored
+# and never leaves this machine. Fall back to the export so a deploy needs no env
+# var -- SITE_DB still wins when it is set.
+if not os.path.exists(DB):
+    _exported = os.path.join(ROOT, "web", "site.db")
+    if os.path.exists(_exported):
+        DB = _exported
 STALE_HOURS = 36
 GRADES = [name for name, _ in impact.GRADE_SCALE] + ["NR"]
 

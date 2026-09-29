@@ -16,7 +16,8 @@
     <span class="dist" role="img" aria-label="Distribution of grades across rated tokens" style="margin-top:10px">
       {% for gr in grades %}{% if counts[gr] %}<span style="background:var(--g-{{ gr }});flex:{{ counts[gr] }}" title="{{ gr }}: {{ counts[gr] }}"></span>{% endif %}{% endfor %}
     </span>
-    <span class="sub" style="margin-top:8px">{{ counts['AAA'] + counts['AA'] + counts['A'] }} investment grade or better</span>
+    {# investment grade is BBB or better, the same definition /ratings and /methodology use #}
+    <span class="sub" style="margin-top:8px">{{ counts['AAA'] + counts['AA'] + counts['A'] + counts['BBB'] }} investment grade or better</span>
   </div>
 </div>
 

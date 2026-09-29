@@ -1,0 +1,21 @@
+# Vercel deployment config for the website only.
+#
+# The pipeline's dependencies live in requirements.txt (numpy, pandas,
+# scikit-learn, ...). NONE of them are needed to serve a page: web/app.py reads
+# SQLite and imports ingest/impact.py, which is pure stdlib maths. Listing only
+# Flask here keeps the serverless bundle small and cold starts short.
+#
+# Docs: https://vercel.com/docs/functions/runtimes/python
+[project]
+name = "exit-web"
+version = "1.0.0"
+description = "Exit - liquidity ratings for crypto (read-only website)"
+requires-python = ">=3.12"
+dependencies = [
+    "flask>=3.0",
+]
+
+[tool.vercel]
+# web/app.py defines the Flask `app`. Vercel loads it and routes every request
+# to it, so the six surfaces and /api/v1/* all work with no rewrite rules.
+entrypoint = "web.app:app"
