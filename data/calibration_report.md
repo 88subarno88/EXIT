@@ -20,4 +20,4 @@ Median absolute error by order size (out-of-fold, bps):
 
 What predicts a token's Y (GBM feature importance): log_sigma 0.47, history_days 0.19, turnover 0.14, log_mcap 0.12, log_volume 0.08
 
-The learned model did not beat the power law by the required 5%, so the power law ships. Published as a negative result.
+The learned model did not beat the power law by the required 5%, so it does not ship. The textbook square-root law has the lowest out-of-fold error and ships instead. Published as a negative result.

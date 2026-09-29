@@ -287,8 +287,14 @@ def report(rows, censored, stats):
     L.append("\nWhat predicts a token's Y (GBM feature importance): " +
              ", ".join(f"{n} {v:.2f}" for n, v in imp))
     if winner != "learned":
+        # Name the model that actually won: when sqrt beats the power law too,
+        # saying "the power law ships" contradicts the table three lines above.
+        shipped = {"sqrt": "the textbook square-root law",
+                   "power": "the power law"}[winner]
         L.append("\nThe learned model did not beat the power law by the required "
-                 f"{LEARNED_MARGIN:.0%}, so the power law ships. Published as a negative result.")
+                 f"{LEARNED_MARGIN:.0%}, so it does not ship. {shipped.capitalize()} has "
+                 "the lowest out-of-fold error and ships instead. Published as a negative "
+                 "result.")
     text = "\n".join(L)
 
     resid = y - oof[winner]                     # log(observed / predicted), out-of-fold

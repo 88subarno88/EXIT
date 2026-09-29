@@ -42,7 +42,10 @@ server = MCPServer(
         "crashes. Every cost already assumes the sale is routed across all four exchanges "
         "at once, so never suggest spreading it across venues as a way to pay less -- that "
         "saving is already priced in. Spreading the sale over TIME is the only mitigation "
-        "the model supports."
+        "the model supports, and Exit does not quantify it: say it costs less, never how "
+        "much less, and never total up measured single-sale costs into an expected loss. "
+        "Anything you know about a token from outside Exit (who issues it, where else it "
+        "trades) must be labelled as not coming from this data."
     ),
 )
 
@@ -172,7 +175,11 @@ def can_i_exit(symbol: str, size_usd: float) -> dict:
                            "simultaneously -- splitting across those venues is already "
                            "priced in and saves nothing further",
         "only_mitigation": "spreading the sale over hours or days costs less than this "
-                           "figure, which is for selling everything immediately",
+                           "figure, which is for selling everything immediately. Exit does "
+                           "NOT measure how much less: do not put a number or a total on it, "
+                           "and never add up measured single-sale costs as if the book "
+                           "refilled in between -- whether it refills is exactly what is "
+                           "unknown for a thin token.",
         "caveats": caveats,
         "safe_size": _safe_size(r),
         "as_of": r["as_of"],
